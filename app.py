@@ -173,8 +173,8 @@ import streamlit as st
 import pickle
 import pandas as pd
 import base64
-
-
+import time
+import streamlit.components.v1 as components
 
 
 # ---------------- BACKGROUND FUNCTION ---------------- #
@@ -195,7 +195,7 @@ def add_bg_from_local(image_file):
             background-position: center top;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            filter: blur(1px); 
+            filter: blur(2px); 
             z-index: -1;
         }}
         .stApp {{ background: transparent; }}
@@ -203,15 +203,15 @@ def add_bg_from_local(image_file):
         /* 2. HEADING (TITLE) */
         h1 {{
             font-size: 65px !important; 
-            color: #C5221F!important; 
+            color: #FFD700!important; 
             text-align: center;
             text-shadow: 3px 3px 6px #000000;
         }}
 
         /* 3. BAAKI NORMAL TEXT (Labels) */
         p, label {{
-            color: white !important; 
-            font-size: 21px !important;
+            color: #F55C92!important; 
+            font-size: 23px !important;
             font-weight: bold;
         }}
 
@@ -252,8 +252,8 @@ def add_bg_from_local(image_file):
 
         /* 7. PREDICT BUTTON */
         div.stButton > button {{
-            background-color: rgba(255, 255, 255, 0.4) !important; 
-            color: black !important; 
+            background-color: rgba(255, 215, 0, 0.4) !important; 
+            color: #000000 !important; 
             font-size: 24px !important;
             font-weight: bold !important;
             border: none !important; 
@@ -262,22 +262,26 @@ def add_bg_from_local(image_file):
             height: 55px;
             margin-top: 15px;
         }}
+/* 8. PAGE KO "MEDIUM" WIDTH DENA */
+        .block-container {{
+            max-width: 1050px !important; /* <--- YAHAN SE AAP PAGE KI CHAUDHAAI SET KAR SAKTE HAIN */
+            padding-top: 10rem !important;
+            padding-bottom: 2rem !important;
+        }}
+        
         </style>
         """,
         unsafe_allow_html=True
     )
 
 # Uske baad function ko call karna hai bina space ke
-add_bg_from_local("image1.jpg")
+
 
 # ---------------- LOAD BACKGROUND ---------------- #
-add_bg_from_local("image1.jpg")
-
-
-
+add_bg_from_local("image.jpg")
+# ---------------- LOAD MODEL ---------------- #
 # ---------------- LOAD MODEL ---------------- #
 pipe = pickle.load(open("pipe.pkl", "rb"))
-
 
 # ---------------- DATA ---------------- #
 teams = [
@@ -293,32 +297,39 @@ cities = [
     'Mumbai', 'Pune', 'Visakhapatnam'
 ]
 
+# --- NAYA MAGIC TRICK: RESET COUNTER ---
+# Yeh Streamlit ko batayega ki dabbo ka naya ID kya rakhna hai
+if "reset_count" not in st.session_state:
+    st.session_state["reset_count"] = 0
+
+rk = st.session_state["reset_count"]
 
 # ---------------- UI ---------------- #
 st.title("🏏 IPL Score Predictor")
 
 col1, col2 = st.columns(2)
 
+# Har dabbe ke key mein humne "_rk" (reset counter) jod diya hai
 with col1:
-    batting_team = st.selectbox("Select Batting Team", sorted(teams))
+    batting_team = st.selectbox("Select Batting Team", sorted(teams), key=f"bat_{rk}")
 
 with col2:
-    bowling_team = st.selectbox("Select Bowling Team", sorted(teams))
+    bowling_team = st.selectbox("Select Bowling Team", sorted(teams), key=f"bowl_{rk}")
 
-city = st.selectbox("Select City", sorted(cities))
+city = st.selectbox("Select City", sorted(cities), key=f"city_{rk}")
 
 col3, col4, col5 = st.columns(3)
 
 with col3:
-    current_score = st.number_input("Current Score", min_value=0, step=1)
+    current_score = st.number_input("Current Score", min_value=0, step=1, key=f"score_{rk}")
 
 with col4:
-    overs = st.number_input("Overs Bowled (e.g., 5.3)", min_value=5.0, max_value=19.5, step=0.1)
+    overs = st.number_input("Overs Bowled (e.g., 5.3)", min_value=5.0, max_value=19.5, step=0.1, key=f"overs_{rk}")
 
 with col5:
-    wickets = st.number_input("Wickets Fallen", min_value=0, max_value=9, step=1)
+    wickets = st.number_input("Wickets Fallen", min_value=0, max_value=9, step=1, key=f"wickets_{rk}")
 
-last_5_over = st.number_input("Runs scored in last 5 overs", min_value=0, step=1)
+last_5_over = st.number_input("Runs scored in last 5 overs", min_value=0, step=1, key=f"last_5_{rk}")
 
 
 # ---------------- PREDICTION ---------------- #
@@ -354,5 +365,14 @@ if st.button("Predict Score"):
         predicted_score = int(result[0])
 
         st.success(f"🏆 Predicted Final Score: {predicted_score}")
-
-
+        
+        # --- TIMER AUR ASLI FULL REFRESH ---
+        countdown_msg = st.empty()
+        
+        for i in range(10, 0, -1):
+            countdown_msg.info(f"⏳ Page will refresh in {i} seconds ")
+            time.sleep(1)
+            
+        # YAHAN HAI JADOO: Hum reset_count ko badha denge jisse dabbo ke saare IDs badal jayenge!
+        st.session_state["reset_count"] += 1
+        st.rerun()
