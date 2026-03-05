@@ -1,5 +1,3 @@
-
-
 # import streamlit as st
 # import pickle
 # import pandas as pd
@@ -168,6 +166,7 @@
 #         # Final Score Screen par dikhana
 #         st.success(f"🏆 Predicted Final Score: {predicted_score}")
 
+# ----------------------------------------------------------------------------------------------
 
 import streamlit as st
 import pickle
@@ -181,12 +180,13 @@ import streamlit.components.v1 as components
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as file:
         encoded_string = base64.b64encode(file.read()).decode()
-
-    # Dhyan dein: st.markdown ke aage 4 spaces (1 Tab) zaroori hai
+    with open("ipl logo.png", "rb") as logo_file:
+        logo_encoded = base64.b64encode(logo_file.read()).decode()
+   
     st.markdown(
-        f"""
+ f"""
         <style>
-        /* 1. BACKGROUND IMAGE */
+        /* 1. BACKGROUND IMAGE AUR WHITE SPACE FIX */
         .stApp::before {{
             content: "";
             background-image: url(data:image/png;base64,{encoded_string});
@@ -195,24 +195,36 @@ def add_bg_from_local(image_file):
             background-position: center top;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            filter: blur(2px); 
+            filter: blur(4px); 
             z-index: -1;
         }}
         .stApp {{ background: transparent; }}
+        /* UPAR KA SAFED PATTA (WHITE SPACE) GAYAB KARNE KE LIYE */
+       header[data-testid="stHeader"] {{
+            background: transparent !important;
+        }}
+        /* UPAR KA MENU (Deploy, 3-dots) VISIBLE KARNA */
+        header[data-testid="stHeader"] {{
+            background: transparent !important;
+        }}
 
+        header[data-testid="stHeader"] * {{
+            color: #FFFFFF !important; /* Deploy aur Always rerun ko safed karne ke liye */
+        }}
         /* 2. HEADING (TITLE) */
         h1 {{
             font-size: 65px !important; 
-            color: #FFD700!important; 
+            color:#FFD166!important; 
             text-align: center;
-            text-shadow: 3px 3px 6px #000000;
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.7);
         }}
 
         /* 3. BAAKI NORMAL TEXT (Labels) */
         p, label {{
-            color: #F55C92!important; 
-            font-size: 23px !important;
+            color: #FAFAFA!important; 
+            font-size: 25px !important;
             font-weight: bold;
+            text-shadow: 0px 2px 6px rgba(0,0,0,0.6);;
         }}
 
         /* 4. SAARE DABBE (Outer Box) KI TRANSPARENCY */
@@ -221,7 +233,10 @@ def add_bg_from_local(image_file):
         ul[role="listbox"] {{
             background-color: rgba(255, 255, 255, 0.4) !important;
             border: none !important;            
-            border-radius: 8px !important; 
+            border-radius: 8px !important;
+            min-height: 45px ;
+            font-size: 20px;
+            color: black; 
         }}
 
         /* 5. ANDAR KE CHHUPE HUE SAFED RANG KO GAYAB KARNA */
@@ -234,7 +249,6 @@ def add_bg_from_local(image_file):
             background-color: transparent !important; 
             color: black !important; 
             font-size: 20px !important; 
-            
             border: none !important;
             box-shadow: none !important;
         }}
@@ -252,15 +266,22 @@ def add_bg_from_local(image_file):
 
         /* 7. PREDICT BUTTON */
         div.stButton > button {{
-            background-color: rgba(255, 215, 0, 0.4) !important; 
-            color: #000000 !important; 
-            font-size: 24px !important;
-            font-weight: bold !important;
-            border: none !important; 
-            border-radius: 8px !important;
+            background: linear-gradient(90deg,#ff9800,#ff5722)!important; /* Button ka color */
+            border: 2px  #FFD700 !important; 
+           
             width: 100%;
             height: 55px;
-            margin-top: 15px;
+            margin-top: 25px;
+            padding: 20px !important;
+        }}
+
+        /* B. SIRF ANDAR KA TEXT (Font Color aur Size) */
+        div.stButton > button p {{
+            color: #FFFFFF !important;  /* <--- YAHAN TEXT KA COLOR DALEIN (Jaise Safed ke liye #FFFFFF) */
+            font-size: 25px !important;
+            font-weight: bold !important;
+            background: transparent !important; /* <--- YEH LINE DOUBLE BOX BANNE SE ROKEGI */
+            margin: 0px !important;
         }}
 /* 8. PAGE KO "MEDIUM" WIDTH DENA */
         .block-container {{
@@ -268,18 +289,40 @@ def add_bg_from_local(image_file):
             padding-top: 10rem !important;
             padding-bottom: 2rem !important;
         }}
-        
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+        /* 9. ERROR AUR SUCCESS MESSAGE KA CSS */
+        /* Message wale dabbe (Box) ka design */
+        div[data-testid="stAlert"] {{
+            background-color: rgba(225,225,225, 0.5) !important; /* <--- Box ka background (Abhi dark hai) */
+            
+            border-radius: 8px !important;
+        }}
+
+        /* Message ke andar ke TEXT ka design */
+        div[data-testid="stAlert"] p {{
+            color: black !important; /* <--- TEXT KA COLOR (Yahan se aap pink hata kar Safed/White kar sakte hain) */
+            font-size: 22px !important;
+            text-shadow: none !important;
+            
+        }}
+        /* 10. IPL LOGO (Top Left) */
+    .ipl-logo {{
+        position: fixed !important;
+        top: 85px !important; 
+        left: 900px !important; 
+        width: 150px !important; 
+        z-index: 9999 !important; 
+    }}
+    </style>
+<img src="data:image/png;base64,{logo_encoded}" class="ipl-logo">
+    """,
+    unsafe_allow_html=True
+)
 
 # Uske baad function ko call karna hai bina space ke
 
 
 # ---------------- LOAD BACKGROUND ---------------- #
-add_bg_from_local("image.jpg")
-# ---------------- LOAD MODEL ---------------- #
+add_bg_from_local("image3.png")
 # ---------------- LOAD MODEL ---------------- #
 pipe = pickle.load(open("pipe.pkl", "rb"))
 
@@ -327,7 +370,7 @@ with col4:
     overs = st.number_input("Overs Bowled (e.g., 5.3)", min_value=5.0, max_value=19.5, step=0.1, key=f"overs_{rk}")
 
 with col5:
-    wickets = st.number_input("Wickets Fallen", min_value=0, max_value=9, step=1, key=f"wickets_{rk}")
+    wickets = st.number_input("Wickets Fallen", min_value=0, max_value=10, step=1, key=f"wickets_{rk}")
 
 last_5_over = st.number_input("Runs scored in last 5 overs", min_value=0, step=1, key=f"last_5_{rk}")
 
