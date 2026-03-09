@@ -132,27 +132,41 @@ def add_bg_from_local(image_file):
            10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
            (Yahan se magic shuru hota hai)
            ========================================= */
+        /* =========================================
+           10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
+           ========================================= */
         @media screen and (max-width: 768px) {{
-            /* Mobile par Title ka size thik kiya */
+            /* 1. Title ko baaki text se kaafi bada kiya */
             h1 {{
-                font-size: 32px !important; 
+                font-size: 45px !important; 
                 line-height: 1.2 !important;
             }}
-            /* Mobile par Logo thoda chhota aur balance kiya */
+            /* 2. Logo ka size chhota kiya */
             .logo-img {{
-                height: 70px !important; 
+                height: 50px !important; 
                 width: auto !important;
             }}
-            /* Text thoda aur visible banaya */
+            /* 3. Normal text (Labels) */
             p, label {{
                 font-size: 18px !important;
             }}
-            /* Dropdown boxes mobile par achhe se fit honge */
+            /* 4. Dropdown aur Inputs */
             div[data-baseweb="select"] > div, 
             div[data-testid="stNumberInputContainer"], input, span {{
                 font-size: 16px !important;
                 min-height: 40px !important;
             }}
+            /* 5. Predict Button ka size aur height chhota kiya */
+            div.stButton > button {{
+                height: 45px !important;
+                margin-top: 15px !important;
+                padding: 5px !important;
+            }}
+            /* Predict Button ke andar ka text chhota kiya */
+            div.stButton > button p {{
+                font-size: 20px !important;
+            }}
+        
         }}
         </style>
 
