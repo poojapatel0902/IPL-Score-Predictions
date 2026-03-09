@@ -141,7 +141,7 @@ def add_bg_from_local(image_file):
         @media screen and (max-width: 768px) {{
             /* 1. Title ka size explicitly bada aur fix kiya */
             h1 {{
-                font-size: 38px !important; 
+                font-size: 48px !important; 
             }}
             /* 2. Logo ka size thoda bada kiya taaki title ke sath balance ho */
             .logo-img {{
