@@ -133,7 +133,7 @@ def add_bg_from_local(image_file):
            ========================================= */
         @media screen and (max-width: 768px) {{
             h1.page-title {{
-                font-size: 40px !important; /* Mobile ma title motu thase */
+                font-size: 50px !important; /* Mobile ma title motu thase */
                 line-height: 1.2 !important;
                 padding: 10px !important;
             }}
@@ -147,7 +147,7 @@ def add_bg_from_local(image_file):
 
         @media screen and (max-width: 480px) {{
             h1.page-title {{
-                font-size: 35px !important; /* Nana phone mate thodu adjust karyu */
+                font-size: 42px !important; /* Nana phone mate thodu adjust karyu */
             }}
         }}
         </style>
