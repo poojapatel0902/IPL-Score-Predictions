@@ -134,7 +134,7 @@ def add_bg_from_local(image_file):
         @media screen and (max-width: 768px) {{
             /* 768px (Tablets aur bade phones) ke liye */
             h1 {{
-                font-size: 45px !important; 
+                font-size: 65px !important; 
                 line-height: 1.1 !important;
             }}
             .block-container {{         
