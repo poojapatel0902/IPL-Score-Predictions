@@ -133,22 +133,35 @@ def add_bg_from_local(image_file):
            ========================================= */
         @media screen and (max-width: 768px) {{
             h1.page-title {{
-                font-size: 50px !important; /* Mobile ma title motu thase */
+                font-size: 60px !important; /* Have aa change thase */
                 line-height: 1.2 !important;
-                padding: 10px !important;
             }}
             p, label {{
-                font-size: 20px !important;
-            }}
-            .block-container {{
-                padding-top: 2rem !important;
+                font-size: 22px !important;
             }}
         }}
 
+        /* 3. SMALL PHONES (480px and below) */
+        /* Aa hamesha 768px ni niche rakhvu */
         @media screen and (max-width: 480px) {{
             h1.page-title {{
-                font-size: 42px !important; /* Nana phone mate thodu adjust karyu */
+                font-size: 42px !important; 
             }}
+            p, label {{
+                font-size: 18px !important;
+            }}
+        }}
+        
+        /* Baaki no CSS (Background, Buttons etc.) am nam j rehva do */
+        .stApp::before {{
+            content: "";
+            background-image: url(data:image/png;base64,{encoded_string});
+            background-size: cover;
+            background-attachment: fixed;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            filter: blur(4px); 
+            z-index: -1;
         }}
         </style>
 
