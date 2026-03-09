@@ -10,9 +10,7 @@ st.set_page_config(page_title="IPL Score Predictor", layout="wide")
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as file:
         encoded_string = base64.b64encode(file.read()).decode()
-    with open("ipl logo.png", "rb") as logo_file:
-        logo_encoded = base64.b64encode(logo_file.read()).decode()
-    
+        
     st.markdown(
         f"""
         <style>
@@ -29,123 +27,155 @@ def add_bg_from_local(image_file):
             z-index: -1;
         }}
         .stApp {{ background: transparent; }}
-
-        :root {{
-            --title-size: 80px;
-            --logo-size: 100px;
-        }}
         
+        /* UPAR KA SAFED PATTA (WHITE SPACE) GAYAB KARNE KE LIYE */
         header[data-testid="stHeader"] {{
             background: transparent !important;
         }}
         
+        /* UPAR KA MENU (Deploy, 3-dots) VISIBLE KARNA */
         header[data-testid="stHeader"] * {{
             color: #FFFFFF !important; 
         }}
         
-        /* 2. HEADING (TITLE) - Laptop Size */
-        h1.page-title {{
-            font-size: var(--title-size) !important;
+        /* 2. HEADING (TITLE) - Default Laptop Size */
+        h1 {{
+            font-size: 65px !important; 
             color:#FFD166!important; 
             text-align: center;
-            text-shadow: 0px 4px 10px rgba(0,0,0,0.8);
-            font-weight: 900 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }}
-        .logo-img {{
-            height: var(--logo-size) !important;
-            width: auto !important;
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.7);
         }}
 
-        /* 3. NORMAL TEXT */
+        /* 3. BAAKI NORMAL TEXT (Labels) - Default Laptop Size */
         p, label {{
             color: #FAFAFA!important; 
             font-size: 25px !important;
             font-weight: bold;
-            text-shadow: 0px 2px 6px rgba(0,0,0,0.6);
+            text-shadow: 0px 2px 6px rgba(0,0,0,0.6);;
         }}
 
-        /* 4. INPUT BOXES */
+        /* 4. SAARE DABBE (Outer Box) KI TRANSPARENCY - UPDATE KIYA GAYA */
         div[data-baseweb="select"] > div, 
-        div[data-testid="stNumberInputContainer"] {{
-            background-color: rgba(255, 255, 255, 0.4) !important;
+        div[data-testid="stNumberInputContainer"],
+        ul[role="listbox"] {{
+            background-color: rgba(255, 255, 255, 0.4) !important; 
+            border:none !important;
             border-radius: 8px !important;
             min-height: 45px ;
-            color: black; 
+            font-size: 20px;
+            color: black !important; 
         }}
 
-        input {{
+        /* 5. ANDAR KE CHHUPE HUE SAFED RANG KO GAYAB KARNA AUR TEXT WHITE KARNA */
+        div[data-baseweb="input"],
+        div[data-baseweb="base-input"],
+        div[data-baseweb="input"] > div,
+        input, 
+        div[data-baseweb="select"] span, 
+        li[role="option"] {{
+            background-color: transparent !important; 
             color: black !important; 
             font-size: 20px !important; 
+            border: none !important;
+            box-shadow: none !important;
         }}
 
-        /* BUTTONS HIDE IN NUMBER INPUT */
+        /* 6. YAHAN SE + AUR - BUTTONS POORI TARAH GAYAB HONGE */
         div[data-testid="stNumberInputContainer"] button {{
             display: none !important; 
+        }}
+
+        li[role="option"]:hover {{
+            background-color: rgba(0, 0, 0, 0.4) !important; 
+            color: black !important;
         }}
 
         /* 7. PREDICT BUTTON */
         div.stButton > button {{
             background: linear-gradient(90deg,#ff9800,#ff5722)!important; 
+            border: 2px  #FFD700 !important; 
             width: 100%;
             height: 55px;
             margin-top: 25px;
-            border-radius: 8px !important;
+            padding: 20px !important;
+            border-radius: 8px !important; 
         }}
 
         div.stButton > button p {{
             color: #FFFFFF !important;  
             font-size: 25px !important;
             font-weight: bold !important;
+            background: transparent !important; 
+            margin: 0px !important;
         }}
         
+        /* 8. PAGE KO "MEDIUM" WIDTH DENA */
         .block-container {{
             max-width: 1050px !important; 
-            padding-top: 2rem !important; 
+            padding-top: 10rem !important; 
+            padding-bottom: 2rem !important;
+        }}
+        
+        /* 9. ERROR AUR SUCCESS MESSAGE KA CSS */
+        div[data-testid="stAlert"] {{
+            background-color: rgba(225,225,225, 0.5) !important; 
+            border-radius: 8px !important;
+        }}
+
+        div[data-testid="stAlert"] p {{
+            color: black !important; 
+            font-size: 22px !important;
+            text-shadow: none !important;
         }}
 
         /* =========================================
-           10. 📱 MOBILE RESPONSIVE FIX
+           10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
            ========================================= */
         @media screen and (max-width: 768px) {{
-            h1.page-title {{
-                font-size: 45px !important; /* Mobile ma title motu thase pan screen ni bahar nahi jay */
+            /* 768px (Tablets aur bade phones) ke liye */
+            h1 {{
+                font-size: 45px !important; 
                 line-height: 1.1 !important;
-                display: block !important;
             }}
-            .logo-img {{
-                height: 70px !important;
+            .block-container {{         
+                padding-top: 6rem !important; 
+                padding-bottom: 2rem !important;
             }}
             p, label {{
+                font-size: 18px !important;
+            }}
+            div[data-baseweb="select"] > div, 
+            div[data-testid="stNumberInputContainer"], input, span {{
+                font-size: 16px !important;
+                min-height: 40px !important;
+            }}
+            div.stButton > button {{
+                height: 45px !important;
+                margin-top: 15px !important;
+            }}
+            div.stButton > button p {{
                 font-size: 20px !important;
             }}
         }}
 
         @media screen and (max-width: 480px) {{
-            h1.page-title {{
-                font-size: 38px !important; /* Small mobile mate size */
-                font-weight: bold !important;
-            }}
-            .logo-img {{
-                height: 60px !important;
+            /* 480px (Chhote phones) ke liye special size */
+            h1 {{
+                font-size: 38px !important; 
             }}
         }}
         </style>
 
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
-            <img src="data:image/png;base64,{logo_encoded}" class="logo-img">
-            <h1 class="page-title">IPL Score Predictor</h1>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; padding-bottom: 15px;">
+            <h1 style="margin: 0; padding: 0;">IPL Score Predictor</h1>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-# Uske baad function ko call karna hai bina space ke
-
-
 # ---------------- LOAD BACKGROUND ---------------- #
 add_bg_from_local("image3.png")
+
 # ---------------- LOAD MODEL ---------------- #
 pipe = pickle.load(open("pipe.pkl", "rb"))
 
@@ -164,18 +194,15 @@ cities = [
 ]
 
 # --- NAYA MAGIC TRICK: RESET COUNTER ---
-# Yeh Streamlit ko batayega ki dabbo ka naya ID kya rakhna hai
 if "reset_count" not in st.session_state:
     st.session_state["reset_count"] = 0
 
 rk = st.session_state["reset_count"]
 
 # ---------------- UI ---------------- #
-#st.title("🏏 IPL Score Predictor")
 
 col1, col2 = st.columns(2)
 
-# Har dabbe ke key mein humne "_rk" (reset counter) jod diya hai
 with col1:
     batting_team = st.selectbox("Select Batting Team", sorted(teams), key=f"bat_{rk}")
 
@@ -195,8 +222,6 @@ with col4:
 with col5:
     wickets = st.number_input("Wickets Fallen", min_value=0, max_value=10, step=1, key=f"wickets_{rk}")
 
-#last_5_over = st.number_input("Runs scored in last 5 overs", min_value=0, step=1, key=f"last_5_{rk}")
-
 
 # ---------------- PREDICTION ---------------- #
 if st.button("Predict Score"):
@@ -204,7 +229,6 @@ if st.button("Predict Score"):
     if batting_team == bowling_team:
         st.error("Batting and Bowling team cannot be the same!")
     else:
-
         overs_completed = int(overs)
         balls_in_current_over = int(round((overs - overs_completed) * 10))
         balls_bowled = (overs_completed * 6) + balls_in_current_over
@@ -224,7 +248,6 @@ if st.button("Predict Score"):
             "balls_left": [balls_left],
             "wickets_left": [wickets_left],
             "current_run_rate": [current_run_rate],
-           # "last_5_over": [last_5_over]
         })
 
         result = pipe.predict(input_df)
@@ -239,6 +262,5 @@ if st.button("Predict Score"):
             countdown_msg.info(f"⏳ Page will refresh in {i} seconds ")
             time.sleep(1)
             
-        # YAHAN HAI JADOO: Hum reset_count ko badha denge jisse dabbo ke saare IDs badal jayenge!
         st.session_state["reset_count"] += 1
         st.rerun()
