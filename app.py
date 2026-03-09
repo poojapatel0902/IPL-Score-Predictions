@@ -132,42 +132,28 @@ def add_bg_from_local(image_file):
            10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
            ========================================= */
         @media screen and (max-width: 768px) {{
-            /* 768px (Tablets aur bade phones) ke liye */
-            h1 {{
-                font-size: 65px !important; 
-                line-height: 1.1 !important;
-            }}
-            .block-container {{         
-                padding-top: 6rem !important; 
-                padding-bottom: 2rem !important;
+            h1.page-title {{
+                font-size: 50px !important; /* Mobile ma title motu thase */
+                line-height: 1.2 !important;
+                padding: 10px !important;
             }}
             p, label {{
-                font-size: 18px !important;
-            }}
-            div[data-baseweb="select"] > div, 
-            div[data-testid="stNumberInputContainer"], input, span {{
-                font-size: 16px !important;
-                min-height: 40px !important;
-            }}
-            div.stButton > button {{
-                height: 45px !important;
-                margin-top: 15px !important;
-            }}
-            div.stButton > button p {{
                 font-size: 20px !important;
+            }}
+            .block-container {{
+                padding-top: 2rem !important;
             }}
         }}
 
         @media screen and (max-width: 480px) {{
-            /* 480px (Chhote phones) ke liye special size */
-            h1 {{
-                font-size: 50px !important; 
+            h1.page-title {{
+                font-size: 42px !important; /* Nana phone mate thodu adjust karyu */
             }}
         }}
         </style>
 
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; padding-bottom: 15px;">
-            <h1 style="margin: 0; padding: 0;">IPL Score Predictor</h1>
+        <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 20px;">
+            <h1 class="page-title">IPL Score Predictor</h1>
         </div>
         """,
         unsafe_allow_html=True
