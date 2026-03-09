@@ -5,15 +5,14 @@ import base64
 import time
 import streamlit.components.v1 as components
 
-
+st.set_page_config(page_title="IPL Score Predictor", layout="wide")
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as file:
         encoded_string = base64.b64encode(file.read()).decode()
     with open("ipl logo.png", "rb") as logo_file:
         logo_encoded = base64.b64encode(logo_file.read()).decode()
-   
     st.markdown(
- f"""
+        f"""
         <style>
         /* 1. BACKGROUND IMAGE AUR WHITE SPACE FIX */
         .stApp::before {{
@@ -28,19 +27,18 @@ def add_bg_from_local(image_file):
             z-index: -1;
         }}
         .stApp {{ background: transparent; }}
+        
         /* UPAR KA SAFED PATTA (WHITE SPACE) GAYAB KARNE KE LIYE */
-       header[data-testid="stHeader"] {{
-            background: transparent !important;
-        }}
-        /* UPAR KA MENU (Deploy, 3-dots) VISIBLE KARNA */
         header[data-testid="stHeader"] {{
             background: transparent !important;
         }}
-
+        
+        /* UPAR KA MENU (Deploy, 3-dots) VISIBLE KARNA */
         header[data-testid="stHeader"] * {{
-            color: #FFFFFF !important; /* Deploy aur Always rerun ko safed karne ke liye */
+            color: #FFFFFF !important; 
         }}
-        /* 2. HEADING (TITLE) */
+        
+        /* 2. HEADING (TITLE) - Default Laptop Size */
         h1 {{
             font-size: 65px !important; 
             color:#FFD166!important; 
@@ -48,7 +46,7 @@ def add_bg_from_local(image_file):
             text-shadow: 0px 2px 8px rgba(0,0,0,0.7);
         }}
 
-        /* 3. BAAKI NORMAL TEXT (Labels) */
+        /* 3. BAAKI NORMAL TEXT (Labels) - Default Laptop Size */
         p, label {{
             color: #FAFAFA!important; 
             font-size: 25px !important;
@@ -87,7 +85,6 @@ def add_bg_from_local(image_file):
             display: none !important; 
         }}
 
-        /* Dropdown list par mouse le jane par effect */
         li[role="option"]:hover {{
             background-color: rgba(0, 0, 0, 0.4) !important; 
             color: black !important;
@@ -95,57 +92,89 @@ def add_bg_from_local(image_file):
 
         /* 7. PREDICT BUTTON */
         div.stButton > button {{
-            background: linear-gradient(90deg,#ff9800,#ff5722)!important; /* Button ka color */
+            background: linear-gradient(90deg,#ff9800,#ff5722)!important; 
             border: 2px  #FFD700 !important; 
-           
             width: 100%;
             height: 55px;
             margin-top: 25px;
             padding: 20px !important;
+            border-radius: 8px !important; /* Thoda gol design */
         }}
 
-        /* B. SIRF ANDAR KA TEXT (Font Color aur Size) */
         div.stButton > button p {{
-            color: #FFFFFF !important;  /* <--- YAHAN TEXT KA COLOR DALEIN (Jaise Safed ke liye #FFFFFF) */
+            color: #FFFFFF !important;  
             font-size: 25px !important;
             font-weight: bold !important;
-            background: transparent !important; /* <--- YEH LINE DOUBLE BOX BANNE SE ROKEGI */
+            background: transparent !important; 
             margin: 0px !important;
         }}
-/* 8. PAGE KO "MEDIUM" WIDTH DENA */
+        
+        /* 8. PAGE KO "MEDIUM" WIDTH DENA */
         .block-container {{
-            max-width: 1050px !important; /* <--- YAHAN SE AAP PAGE KI CHAUDHAAI SET KAR SAKTE HAIN */
-            padding-top: 10rem !important;
+            max-width: 1050px !important; 
+            padding-top: 4rem !important; 
             padding-bottom: 2rem !important;
         }}
+        
         /* 9. ERROR AUR SUCCESS MESSAGE KA CSS */
-        /* Message wale dabbe (Box) ka design */
         div[data-testid="stAlert"] {{
-            background-color: rgba(225,225,225, 0.5) !important; /* <--- Box ka background (Abhi dark hai) */
-            
+            background-color: rgba(225,225,225, 0.5) !important; 
             border-radius: 8px !important;
         }}
 
-        /* Message ke andar ke TEXT ka design */
         div[data-testid="stAlert"] p {{
-            color: black !important; /* <--- TEXT KA COLOR (Yahan se aap pink hata kar Safed/White kar sakte hain) */
+            color: black !important; 
             font-size: 22px !important;
             text-shadow: none !important;
-            
         }}
-        /* 10. IPL LOGO (Top Left) */
-    .ipl-logo {{
-        position: fixed !important;
-        top: 85px !important; 
-        left: 900px !important; 
-        width: 150px !important; 
-        z-index: 9999 !important; 
-    }}
-    </style>
-<img src="data:image/png;base64,{logo_encoded}" class="ipl-logo">
-    """,
-    unsafe_allow_html=True
-)
+
+        /* =========================================
+           10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
+           (Yahan se magic shuru hota hai)
+           ========================================= */
+        @media screen and (max-width: 768px) {{
+            /* Mobile par Title chhota karein */
+            h1 {{
+                font-size: 35px !important;
+            }}
+            /* Mobile par Logo thoda chhota karein */
+            .logo-img {{
+                height: 80px !important;
+            }}
+            /* Labels aur normal text chhota karein */
+            p, label {{
+                font-size: 16px !important;
+            }}
+            /* Dropdown aur boxes ka text aur chhota karein */
+            div[data-baseweb="select"] > div, 
+            div[data-testid="stNumberInputContainer"], input, span {{
+                font-size: 16px !important;
+                min-height: 38px !important;
+            }}
+            /* Predict button mobile ke hisaab se fit karein */
+            div.stButton > button {{
+                height: 45px !important;
+                padding: 10px !important;
+            }}
+            div.stButton > button p {{
+                font-size: 18px !important;
+            }}
+            /* Mobile par side padding adjust karein */
+            .block-container {{
+                padding-top: 2rem !important;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }}
+        }}
+        </style>
+
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+            <img src="data:image/png;base64,{logo_encoded}" class="logo-img" style="height: 120px; width: auto; max-width: 100%;">
+            <h1 style="margin: 0;">IPL Score Predictor</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Uske baad function ko call karna hai bina space ke
 
@@ -177,7 +206,7 @@ if "reset_count" not in st.session_state:
 rk = st.session_state["reset_count"]
 
 # ---------------- UI ---------------- #
-st.title("🏏 IPL Score Predictor")
+#st.title("🏏 IPL Score Predictor")
 
 col1, col2 = st.columns(2)
 
