@@ -135,37 +135,42 @@ def add_bg_from_local(image_file):
         /* =========================================
            10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
            ========================================= */
+        /* =========================================
+           10. 📱 MOBILE AUR TABLET RESPONSIVE CSS
+           ========================================= */
         @media screen and (max-width: 768px) {{
-            /* 1. Title ko baaki text se kaafi bada kiya */
+            /* 1. Title ka size explicitly bada aur fix kiya */
             h1 {{
-                font-size: 45px !important; 
-                line-height: 1.2 !important;
+                font-size: 38px !important; 
             }}
-            /* 2. Logo ka size chhota kiya */
+            /* 2. Logo ka size thoda bada kiya taaki title ke sath balance ho */
             .logo-img {{
-                height: 50px !important; 
+                height: 75px !important; 
                 width: auto !important;
             }}
-            /* 3. Normal text (Labels) */
+            /* 3. Poore design ko upar se thoda NEECHE (middle) laane ke liye padding badhai */
+            .block-container {{         
+                padding-top: 6rem !important; 
+                padding-bottom: 2rem !important;
+            }}
+            /* 4. Labels aur inputs ka size */
             p, label {{
                 font-size: 18px !important;
             }}
-            /* 4. Dropdown aur Inputs */
             div[data-baseweb="select"] > div, 
             div[data-testid="stNumberInputContainer"], input, span {{
                 font-size: 16px !important;
                 min-height: 40px !important;
             }}
-            /* 5. Predict Button ka size aur height chhota kiya */
+            /* 5. Predict Button */
             div.stButton > button {{
                 height: 45px !important;
                 margin-top: 15px !important;
-                padding: 5px !important;
             }}
-            /* Predict Button ke andar ka text chhota kiya */
             div.stButton > button p {{
                 font-size: 20px !important;
             }}
+        
         
         }}
         </style>
