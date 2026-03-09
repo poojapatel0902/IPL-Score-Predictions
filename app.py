@@ -161,7 +161,7 @@ def add_bg_from_local(image_file):
         @media screen and (max-width: 480px) {{
             /* 480px (Chhote phones) ke liye special size */
             h1 {{
-                font-size: 38px !important; 
+                font-size: 50px !important; 
             }}
         }}
         </style>
