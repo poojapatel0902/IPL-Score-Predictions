@@ -133,42 +133,30 @@ def add_bg_from_local(image_file):
            (Yahan se magic shuru hota hai)
            ========================================= */
         @media screen and (max-width: 768px) {{
-            /* Mobile par Title chhota karein */
+            /* Mobile par Title ka size thik kiya */
             h1 {{
-                font-size: 35px !important;
+                font-size: 32px !important; 
+                line-height: 1.2 !important;
             }}
-            /* Mobile par Logo thoda chhota karein */
+            /* Mobile par Logo thoda chhota aur balance kiya */
             .logo-img {{
-                height: 80px !important;
+                height: 70px !important; 
+                width: auto !important;
             }}
-            /* Labels aur normal text chhota karein */
+            /* Text thoda aur visible banaya */
             p, label {{
-                font-size: 16px !important;
+                font-size: 18px !important;
             }}
-            /* Dropdown aur boxes ka text aur chhota karein */
+            /* Dropdown boxes mobile par achhe se fit honge */
             div[data-baseweb="select"] > div, 
             div[data-testid="stNumberInputContainer"], input, span {{
                 font-size: 16px !important;
-                min-height: 38px !important;
-            }}
-            /* Predict button mobile ke hisaab se fit karein */
-            div.stButton > button {{
-                height: 45px !important;
-                padding: 10px !important;
-            }}
-            div.stButton > button p {{
-                font-size: 18px !important;
-            }}
-            /* Mobile par side padding adjust karein */
-            .block-container {{
-                padding-top: 2rem !important;
-                padding-left: 1rem !important;
-                padding-right: 1rem !important;
+                min-height: 40px !important;
             }}
         }}
         </style>
 
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; margin-bottom: 10px;">
             <img src="data:image/png;base64,{logo_encoded}" class="logo-img" style="height: 120px; width: auto; max-width: 100%;">
             <h1 style="margin: 0;">IPL Score Predictor</h1>
         </div>
