@@ -19,6 +19,7 @@ Built a highly interactive and responsive frontend using Streamlit.
 Designed a custom, modern "Dark Glassmorphism" user interface using advanced CSS, ensuring the application looks sleek and performs flawlessly on both desktop and mobile devices.
 4. Cloud Deployment
 Successfully deployed the fully functional web application to the cloud.
+
 localhost : streamlit run app.py
 
 ## Live Application:
@@ -32,4 +33,4 @@ Early Overs Volatility: Predictions made within the first 5 overs  rely heavily 
 ## Conclusion
 This project successfully bridges raw historical sports data with an accessible, real-time web application. By combining a highly accurate XGBoost prediction model with a premium, responsive frontend, the IPL Score Predictor transforms complex predictive analytics into an intuitive user experience. It stands as a complete end-to-end data science and web development lifecycle—from raw data processing to a live, cloud-hosted application.
 
-
+<a href= "https://github.com/poojapatel0902/IPL-Score-Predictions/blob/main/Screenshot%202026-03-14%20230850.png">photo</a>
